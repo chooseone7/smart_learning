@@ -1,0 +1,16 @@
+OX_3216669841({
+  "ads":{
+    "medium":"w",
+    "record_tmpl":"https://disqus-d.openx.net/{medium}/1.0/{rtype}?ts={txn_state}",
+    "pixels":"https://us-u.openx.net/w/1.0/pd?plm=5&ph=47059f01-5da6-4563-96a5-c4b82817b77a",
+    "adunits" : [
+      {
+        "auid":"538713776",
+        "chain_revenue":"",
+        "size":"300x250",
+        "chain":[
+        ]
+      }
+    ]
+  }
+});

@@ -1,0 +1,10 @@
+document.writeln("<sc"+"ript type=\"text/javascript\">");
+document.writeln("var nugg4appnexus=\"\";");
+document.writeln("var nugg4sticky =\"\";");
+document.writeln("var nuggrid = encodeURIComponent(top.location.href);");
+document.writeln("var nuggtg=encodeURIComponent(\"\"); ");
+document.writeln("var nuggn=1786033338;");
+document.writeln("var nuggsid=8039645;");
+document.writeln("var nugghost=\"http://zodiakspa.nuggad.net\";");
+document.writeln("document.write('<scr' + 'ipt type=\"text/javascript\" src=\"'+nugghost+'/rc?nuggn='+nuggn+'&nuggsid='+nuggsid+'&nuggrid='+nuggrid+'&nuggtg='+nuggtg+'\"></scr' + 'ipt>');  ");
+document.writeln("</sc"+"ript>");

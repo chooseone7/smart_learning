@@ -1,0 +1,63 @@
+What is an algebraic expresssion?
+What is a term?
+?
+?
+Similar terms
+Dissimilar or unlike term
+Coefficiente of a term
+
+	Degree of a term
+	Homogeneous terms
+	Monomials
+	Polynomials
+	Trinomials
+	Degree of an Algebraic expression
+	And finally homogeneous polynomials
+
+
+
+
+An algebraic expression is any representation of a number by algebraic notations
+	3x + 4
+	4ab - b
+	5 + 4x + b2
+	<> = inequality sign inecuation
+	= equality sign - inequality
+	
+	First expression  second expression
+	5 + 4x + b2      = 4ab - b
+	--------------->this forms a equation
+	expression only doesn't have equal sign
+
+	A TERM, is an expression separated by a plus or a minus sign or an equality or inequality sign
+	3x - 2a = 4c + 3 -terms 3x, -2a, 4c, 3  
+	There is term groups by (), {}, []
+
+	 3 * (x+2) + 4y = (2x + t)exp2
+	 there are 3 terms->  3*(x+2)     4y    (2x + t)
+
+
+
+
+similar or like terms are terms having the same
+variables affected by the same exponents 
+example we have
+5x squared + 2 x squared
+these are similar terms because they have the same variable X and the same
+exponent 2 - a b and for a b are also similar terms because they both have the
+same variables or letters and those variables have the same exponents next
+4y + 2 y we have the same variable Y and therefore they are like terms before we
+move on let's look at the exponent 1 every variable letter or
+number that has no exponent written has an exponent of 1 so 4 5 X the X has an
+exponent of 1 similarly for 2 a B the a has an exponent of 1 and the B also has
+an exponent of 1 
+dissimilar terms are terms which differ in variables or
+exponents or both example 
+
+The COEFFICIENT of a term is the constant, usually number, preceding a term
+^(alt+94)
+
+
+
+
+¨´´++}}{{--♀♪♫☼►◄↕‼¶§▬↨↑<=>?ü@ABOPY[\]]^^}}

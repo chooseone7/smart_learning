@@ -1,0 +1,751 @@
+Namespace.Register("BBT.component");
+Namespace.Register("BBT.component.cardForm");
+Namespace.Register("BBT.component.upload");
+Namespace.Register("BBT.component.hooks");
+
+BBT.component.cardForm.initForm = function (_jObj) {
+
+    var jObj = _jObj; // fix
+
+    if(jObj == null) {
+	jObj = jQuery("body");
+    }
+
+    jObj.find(".bb-field_calendar").each(function (i, data) {
+	jQuery(data).datepicker({ dateFormat: 'dd/mm/yy', firstDay: 1 });
+    });
+
+
+    // Upload de ficheros sueltos
+    jObj.find(".bb-field_file.bb_autoupdate_1").each(function (i, data) {
+
+	var _name = BBT.getProperty(jQuery(data), "bb-field-name");
+	new Ajax_upload(jQuery(data), {
+	    action: '/bbtfile/upload/' + _name + '.json',
+	    name: _name,
+	    autoSubmit: true,
+
+	    onSubmit: function(file, extension) {
+		jQuery("." + _name + "_wrap" + " .loading").html("<img src='/static/BBTContent/images/loading.gif'> Subiendo " + file + "...") ;
+	    },
+
+	    onComplete: function(file, _response) {
+		var response = BBT.fixJson(_response);
+
+		if(response["error"] == 0) {
+		    jObj.find("[name='" + _name + "']").val(response["data"]);
+
+		    jQuery("." + _name + "_wrap" + " .loading").html("");
+		    try {
+			BBT.component.upload[_name](response);
+		    } catch (e) {
+			BBT.log("info: no hay hook para upload de " + _name);
+		    }
+		} else {
+		    BBT.message(response["message"], 2);
+		}
+	    }
+	});
+    });
+
+
+    // Upload de ficheros de coleccion
+    jObj.find(".bb-form-collectionupload").each(function(i, data) {
+	var field_name = BBT.getProperty(jQuery(data), "field-name");
+	var collectionId = BBT.getProperty(jQuery(data), "collectionId");
+	var config = BBT.getProperty(jQuery(data), "config");
+
+	var formLayer = jQuery(data);
+	var options = {
+	    beforeSubmit: function (formData, jqForm, options) {
+		formLayer.find(".fileInfo").html("<img src='/static/BBTContent/images/loading.gif'>");
+	    },
+	    success: function (responseText, statusText) {
+		var response = BBT.fixJson(responseText);
+		if(response["error"] == 0) {
+		    formLayer.find(".fileInfo").html("<a target='_blank' href='" + response["url"] + "'>" + "<img src='" + response["url"] + "' width='150px'/></a>");
+		    formLayer.find("input[name='" + field_name + "']").val(response["fileId"]);
+		    try {
+			BBT.component["onChange_" + field_name]();
+		    } catch(e) {
+			// no hay hook
+		    }
+		    // DEPRECATED
+		    try {
+			BBT.component[field_name]["onChange"]();
+		    } catch(e) {
+			// no hay hook
+		    }
+		} else {
+		    alert(response["message"]);
+		}
+	    }
+	};
+
+	jQuery(data).find("form").ajaxForm(options);
+	jQuery(data).find("form input[type='file']").change(function () {
+	    jQuery(data).find("form").submit();
+	});
+
+	jQuery(data).find(".select-collection-file").click(function () {
+	    try {
+		BBT.component["beforeSelector_" + field_name]();
+	    } catch(e) {
+		BBT.log(e);
+		// no hay hook
+	    }
+	    var url = BBT.getUrl("BBTFileSelectorJSONPage", {"collectionId": collectionId});
+	    jQuery.get(url, function (_response) {
+		var response = BBT.fixJson(_response);
+		if(response["error"] == 0) {
+		    BBT.modal(response["data"]);
+		    jQuery("#collection_selector_" + collectionId + " a.delete-image").click(
+			function () {
+			    var _id = BBT.getProperty(jQuery(this), "fileId");
+			    BBT.component._deleteFileId(_id);
+			    return false;
+
+			});
+		    jQuery("#collection_selector_" + collectionId + " a.select-image").click(
+
+			function () {
+			    var _id = BBT.getProperty(jQuery(this), "fileId");
+			    var _href = jQuery(this).attr("href");
+
+			    formLayer.find(".fileInfo").html("<a target='_blank' href='" + _href + "'>" + "<img src='" + _href + "' width='150px'/></a>");
+			    formLayer.find("input[name='" + field_name + "']").val(_id);
+			    formLayer.find("input[type='file']").val("");
+
+			    // DEPRECATED
+			    try {
+				BBT.component[field_name]["onChange"]();
+			    } catch(e) {
+				// no hay hook
+			    }
+			    BBT.closeModal();
+
+			    try {
+				BBT.component["onChange_" + field_name]();
+			    } catch(e) {
+				BBT.log(e);
+				// no hay hook
+			    }
+
+			    return false;
+			});
+		}
+	    });
+	    return false;
+	});
+
+    });
+
+
+    jObj.find(".bb-btn-searchId").wrap("<span class='bb-btn-searchId-wrapper'/>");
+    jObj.find(".bb-btn-searchId").click(function (e) {
+	if ( e.isPropagationStopped() ) {
+	    return false;
+	}
+	BBT.component.cardForm._searchId(jQuery(this));
+	return false
+    });
+
+    jObj.find(".bb-btn-searchId-wrapper").each(function (i, data) {
+	jQuery(data).prepend("<img src='/static/BBTCore/images/loading.gif' class='loading-search' style='display:none'>");
+    });
+
+    // TRAPI: Los modales que lanza tiny se pegan con los modales de jquery-ui.
+    // http://www.tinymce.com/wiki.php/Tutorials:TinyMCE_in_a_jQuery_UI_dialog
+    // You need to add some custom logic when rendering TinyMCE instances inside jQuery UI dialogs since it blocks all focus in calls of elements outside the dialog
+    jQuery(document).on('focusin', function(event) {
+	if (jQuery(event.target).closest(".mce-window").length) {
+	    event.stopImmediatePropagation();
+	}
+    });
+
+    // Avoid double bindings
+    jQuery(".bb-field_richtext_preview").off("click");
+    jQuery(".bb-field_richtext_preview").on("click", function(e) {
+
+	var editor = jQuery(this).next();
+
+	console.log("Initiating tiny on ", jQuery(editor));
+
+	jQuery(this).hide();
+
+	editor.show();
+
+	if(typeof jQuery(editor).attr("id") == "undefined") {
+	    jQuery(editor).attr("id", jQuery(editor).attr("name") + "_" + Math.random().toString().replace(".", ""));
+	}
+
+	var type = BBT.getProperty(jQuery(editor), "rt-type");
+	if (typeof type != "string") {
+	    type = "";
+	}
+
+	BBT.component.tinyMCE.init(jQuery(editor).attr("id"), type);
+    });
+};
+
+BBT.component._deleteFileId = function (fileId) {
+
+    if(confirm("¿Está seguro de querer borrar este archivo?")) {
+
+	var url = BBT.getUrl("BBTFileDeleteJSONPage", {"fileId" : fileId} );
+	jQuery.post(url, function (_response) {
+	    var response = BBT.fixJson(_response);
+	    if(response["error"] == 0) {
+		jQuery("#file_selector_" + fileId.replace(".","-")).remove();
+	    } else {
+		alert(response["message"]);
+	    }
+	});
+    }
+    return false;
+}
+
+BBT.component.cardForm.getFields = function (jObj, notNull) {
+
+    if(notNull == null) {
+	notNull == false;
+    }
+
+    if(jObj == null) {
+	jObj = jQuery("body");
+    }
+
+    var postData = {};
+
+    jObj.find(".bb-field").each(function(i, data) {
+	var _name = jQuery(data).attr("name");
+
+	if(_name == null) {
+	    _name = BBT.getProperty(jQuery(this), "bb-field-name");
+	}
+
+	if(_name != null) {
+	    var value = BBT.getFieldValue(_name, jObj, notNull);
+	    postData[_name] = value;
+
+	}
+    });
+
+    return postData;
+};
+
+BBT.component.cardForm._selectContentId = function (hook, sender_jObj) {
+    jObj = jQuery("#bb-modal-search");
+    var hook = hook;
+    var sender_jObj = sender_jObj;
+    jObj.find(".bb-search-result-item a").click(function () {
+	var contentId = BBT.getProperty(jQuery(this).parents(".bb-search-result-item:first"), "contentId");
+	var contentType = BBT.getProperty(jQuery(this).parents(".bb-search-result-item:first"), "contentType");
+	if(contentId != null && contentId != "") {
+	    try {
+		BBT.component.hooks[hook](contentId, contentType, sender_jObj);
+		BBT.closeModal();
+	    } catch(e) {
+		return false;
+	    }
+	} else {
+	    BBT.log("contentId vacio");
+	}
+	return false;
+    });
+};
+
+BBT.component.cardForm._searchId = function (jObj) {
+
+    jObj.hide();
+    jObj.parents(".bb-btn-searchId-wrapper:first").find(".loading-search").show();
+
+    var hook = BBT.getProperty(jObj, "bbt-hook");
+
+    if (hook == false || hook == "" || hook == null) {
+	hook = BBT.getProperty(jObj.parents(".bb-form-btn-search:first") , "bbt-hook");
+    };
+
+    var jObj = jObj;
+
+    var searchParams = {};
+    searchParams["module"] = "BBTContentSearchMO";
+    searchParams["tpl"] = "bbtcontentsearchmo_selector.tpl";
+
+    var _contentTypes = jObj.parents(".bb-form-btn-search:first").find(".contentTypes").html();
+
+    if (_contentTypes != "" && _contentTypes != null)
+	searchParams["type"] = _contentTypes;
+
+    var _sectionId = jObj.parents(".bb-form-btn-search:first").find(".sectionId").html();
+    if(_sectionId != "" && _sectionId != "") {
+	searchParams["sectionId"] = _sectionId;
+    }
+
+    var site = jObj.parents(".bb-form-btn-search:first").find(".bb-component_searchContent .site").html();
+    var similarContentId = jObj.parents(".bb-form-btn-search:first").find(".similarContentId").html();
+
+    if (site == null) {
+	site = jObj.parents("tbody").find("input[name=site]").val();
+    }
+
+    if (site != null) {
+	searchParams["site"] = site;
+    }
+
+    if (similarContentId != null) {
+	searchParams["similarContentId"] = similarContentId;
+    }
+
+    var url = BBT.getUrl("BBTDispatchRenderModuleJSONPage", searchParams);
+
+    jQuery.get(url, function (_response) {
+	var response = BBT.fixJson(_response);
+	jObj.parents(".bb-btn-searchId-wrapper:first").find(".loading-search").hide();
+	jObj.show();
+	if(response["error"] == 0) {
+	    BBT.modal('<div id="bb-modal-search">' + response["html"] + '</div>');
+	    var sr_params = {};
+	    sr_params["ajax_search"] = true;
+	    sr_params["success"] = function () {
+		BBT.component.cardForm._selectContentId(hook, jObj);
+	    };
+
+	    // Si estamos haciendo una busqueda similar hacemos que empiece buscando, y ocultamos el boton de salvar busqueda
+	    if (similarContentId != null && similarContentId != "") {
+		sr_params["hide_search_button"] = true;
+	    }
+
+	    BBT.content.search.initForm(jQuery("#bb-modal-search"), sr_params);
+
+	    if (similarContentId != null && similarContentId != "") {
+		jQuery("#bb-modal-search .bb-btn_search").trigger('click');
+	    }
+	}
+    });
+};
+
+BBT.component.initSectionSelector = function(jObj) {
+    BBT.component._initSectionSelector(jObj);
+    jObj.find(".btn-select").click(function () {
+	var callback = jObj.find(".bbt-data .callback").html();
+	try {
+	    BBT.component.hooks[callback](jObj.find(".bbt-data .sectionId").html(), jObj.find(".bbt-data .sectionName").html());
+	    return false;
+	} catch(e) {
+	    BBT.log("callback not found: " + callback);
+	}
+	return false;
+    });
+
+    if(jObj.find(".bbt-data .sectionId").html() == "") {
+	jObj.find(".wrapper-btn-select").hide();
+    }
+
+    jObj.find("input[name='search-sectionselector']").bind("keyup", function () {
+	var _value = jQuery(this).val();
+	if(_value == "") {
+	    jObj.find("ul.bbt-sectionselector-mainlist li").show();
+	} else {
+	    jObj.find("ul.bbt-sectionselector-mainlist li").hide();
+	    jObj.find("ul.bbt-sectionselector-mainlist li").each(function () {
+		var val = jQuery(this).html().toLowerCase();
+		var pos = val.toLowerCase().indexOf(_value);
+		if(pos != -1) jQuery(this).show();
+	    });
+	}
+    });
+};
+
+BBT.component._initSectionSelector = function(jObj, isBoard) {
+    var jObj = jObj;
+
+    jObj.find(".btn-domain").unbind("click");
+    jObj.find(".btn-section").unbind("click");
+
+    jObj.find(".btn-domain").click(function () {
+	jObj.find(".wrapper-btn-select").hide();
+	var _domainId = BBT.getProperty(jQuery(this), "domainId");
+	jObj.find(".bbt-sectionselector-mainlist").html("");
+	jObj.find(".bbt-sectionselector-breadcrumb span:not(.bbt-bc-fixed)").remove();
+	jObj.find(".bbt-sectionselector-breadcrumb span.bbt-bc-domain").remove();
+
+	if(_domainId == 0) {
+	    jObj.find(".bbt-sectionselector-mainlist").html(jObj.find(".dummy-domains").html());
+	} else {
+	    jObj.find(".bbt-sectionselector-breadcrumb").append('<span class="bbt-bc-domain bbt-bc-fixed"><a href="#" class="btn-domain domainId_' + _domainId + '" data-domain="' + jQuery(this).attr("data-domain") + '">' + jQuery(this).attr("data-domain") + '</a> &gt; </span>');
+	    jObj.find(".dummy-sections .domainId_" + _domainId).each(function (i, data) {
+		var _sectionId = BBT.getProperty(jQuery(this), "sectionId");
+		var _sectionName = jQuery(data).html();
+		jObj.find(".bbt-sectionselector-mainlist").append('<li><a href="#" class="btn-section sectionId_' + _sectionId + '">' + _sectionName + '</a></li>');
+	    });
+	}
+
+	BBT.component._initSectionSelector(jObj, isBoard);
+	return false;
+    });
+
+    jObj.find(".btn-section").click(function () {
+	var jSection = jQuery(this);
+	jQuery("input[name='search-sectionselector']").val("");
+	jObj.find(".sectionname").html(jQuery(this).html());
+
+	jObj.find(".bbt-sectionselector-mainlist").html("<li><img src='/static/BBTContent/images/loading.gif'></li>");
+	var sectionId = BBT.getProperty(jQuery(this), "sectionId");
+	jObj.find(".bbt-data .sectionId").html(sectionId);
+	jObj.find(".bbt-data .sectionName").html(jQuery(this).html());
+
+	if(sectionId == "0") {
+	    jObj.find(".bbt-sectionselector-mainlist").html(jObj.find(".dummy-sections").html());
+	    if(jObj.find(".bbt-sectionselector-breadcrumb span").length == 0) {
+		jObj.find(".bbt-sectionselector-breadcrumb").html('<span><a href="#" class="btn-section sectionId_0">Secciones</a> &gt; </span>');
+	    }
+
+	    BBT.component._initSectionSelector(jObj, isBoard);
+	    jObj.find(".wrapper-btn-select").hide();
+
+	    var callback = jObj.find(".bbt-data .onChangeNavigation").html();
+	    try {
+		BBT.component.hooks[callback](0,"");
+	    } catch(e) {
+		BBT.log("onChangeNavigation not found " + e);
+	    }
+
+	    return false;
+	} else {
+	    jObj.find(".wrapper-btn-select").show();
+	}
+
+	var topSectionId = BBT.getProperty(jObj, "top-sectionId");
+
+	var url = BBT.getUrl("BBTSectionGetValuesJSONPage", {sectionId: sectionId, fields: "name,formated-children,formated-full-parents,canHaveContents"});
+
+	// Por defecto ocultamos el selector de contenido
+	// Si admite contenido mostramos el selector tras la carga
+	jObj.find(".wrapper-btn-select").hide();
+
+	jQuery.get(url, function (_response) {
+	    var response = BBT.fixJson(_response);
+	    if (response["error"] == 0) {
+		jObj.find(".bbt-sectionselector-mainlist").html("");
+		jObj.find(".bbt-sectionselector-breadcrumb span:not(.bbt-bc-fixed)").remove();
+
+
+		var ret = eval(response["formated-children"]);
+		if(ret.length == 0) {
+		    jObj.find(".bbt-sectionselector-mainlist").append('<li>Sin secciones</li>');
+		} else {
+		    jQuery.each(ret, function (i, data) {
+			jObj.find(".bbt-sectionselector-mainlist").append('<li><a href="#" class="btn-section sectionId_' + data["sectionId"] + '">' + data["sectionName"] + '</a></li>');
+		    });
+		}
+
+		var breadcrumb = eval(response["formated-full-parents"]);
+		if(topSectionId == "") {
+		    if(jObj.find(".bbt-sectionselector-breadcrumb span").length == 0) {
+			jObj.find(".bbt-sectionselector-breadcrumb").append('<span><a href="#" class="btn-section sectionId_0">Secciones</a> &gt; </span>');
+		    }
+		} else {
+		    jObj.find(".bbt-sectionselector-breadcrumb").append('<span>Secciones &gt; </span>');
+		    // reescribimos la miga
+		    var _bc = breadcrumb;
+		    breadcrumb = [];
+		    var _isBCData = false;
+		    jQuery.each(_bc, function (i, data) {
+			if(data["sectionId"] == topSectionId) {
+			    _isBCData = true;
+			}
+			if(_isBCData) {
+			    breadcrumb[breadcrumb.length] = data;
+			}
+		    });
+		}
+
+
+
+		jQuery.each(breadcrumb, function (i, data) {
+		    jObj.find(".bbt-sectionselector-breadcrumb").append('<span><a href="#" class="btn-section sectionId_' + data["sectionId"] + '">' + data["sectionName"] + '</a> &gt; </span>');
+		});
+
+		jObj.find(".bbt-sectionselector-breadcrumb").append('<span>' + response["name"] + '</span>');
+
+		var callback = jObj.find(".bbt-data .onChangeNavigation").html();
+		try {
+		    BBT.component.hooks[callback](sectionId, response["name"]);
+		} catch(e) {
+		    BBT.log("onChangeNavigation not found " + e);
+		}
+
+		//  Si admite contenido mostramos el selector
+		if (response["canHaveContents"] == "1") {
+		    jObj.find(".wrapper-btn-select").show();
+		}
+
+		BBT.component._initSectionSelector(jObj, isBoard);
+	    } else {
+		BBT.error("Error: " + response["message"]);
+	    }
+	});
+	return false;
+    });
+};
+
+
+BBT.component.initCalendar = function(jObj, numMonth, numYear, moclass, additionalParams) {
+
+    if (typeof additionalParams == 'undefined'
+	|| additionalParams.length == -1) {
+	var additionalParams = {};
+    }
+
+    var numMonth = parseInt(numMonth, 10);
+    var numYear = parseInt(numYear, 10);
+
+    jObj.find(".btn-prev").click(function(){
+
+	jQuery(".bbt-calendar-title span").hide();
+	jQuery(".bbt-image-loading").show();
+
+	var url = BBT.getProperty(jQuery(this), "bbt-calendar-url");
+
+	if (url == null) {
+	    url = "";
+	}
+
+	getPrevMonth(url);
+	return false;
+    });
+
+    jObj.find(".btn-next").click(function(){
+
+	jQuery(".bbt-calendar-title span").hide();
+	jQuery(".bbt-image-loading").show();
+
+	var url = BBT.getProperty(jQuery(this), "bbt-calendar-url");
+	if (url == null) {
+	    url = "";
+	}
+
+	getNextMonth(url);
+	return false;
+    });
+
+    function getPrevMonth(url) {
+
+	if (url == "") {
+	    var year = numYear;
+	    var month =  parseInt(numMonth, 10) - 1;
+
+	    if (month == 0) {
+		month = 12;
+		year = year - 1;
+	    }
+
+	    var url = "/bbtcomponent/getcalendar.json?year=" + year + "&month=" + month + "&class=" + moclass;
+	}
+
+	postData(url, additionalParams);
+    }
+
+    function getNextMonth(url) {
+
+	if (url == "") {
+	    var year = numYear;
+	    var month =  parseInt(numMonth, 10) + 1;
+
+	    if (month == 13) {
+		month = 1;
+		year = year + 1;
+	    }
+	    var url = "/bbtcomponent/getcalendar.json?year=" + year + "&month=" + month + "&class=" + moclass;
+	}
+
+	postData(url, additionalParams);
+    }
+
+    function postData(url, params) {
+	jQuery.post(url, params, function (_response) {
+	    var response = BBT.fixJson(_response);
+	    if(response["error"] == "0") {
+		jObj.html(response['data']);
+	    }
+	});
+    }
+
+};
+
+BBT.component.userSelectorInsertResult = function(jObj, field, userDatas) {
+    jObj.find("input[name='" + field +  "']").val(userDatas["userId"]);
+    jObj.find("input[name='searchstring']").val(userDatas["searchstring"]);
+    jObj.find(".bb-user-selector-nick").text(userDatas["nick"]);
+    jObj.find(".bb-user-selector-nick").attr("style", "color: green");
+};
+
+BBT.component.userSelectorInsertResults = function(jObj, field, userDatas) {
+    var jSelectWrap = jObj.find(".bb-select-wrap");
+    var jSelect = jSelectWrap.find("select")
+    jSelectWrap.show("slow");
+    jQuery.each(userDatas, function(index, item) {
+	BBT.log(item);
+	var option = '<option value="' + item["userId"] + '">' + item["nick"] + '</option>';
+	jSelect.append(option);
+    });
+
+    jSelect.find("option").click(function() {
+	var val = jQuery(this).val();
+	var optionText = jQuery(this).text()
+	BBT.component.userSelectorInsertResult(jObj, field, {"nick": optionText, "userId": val, "searchstring": optionText});
+	jSelectWrap.hide();
+	jSelect.empty();
+    });
+
+};
+
+BBT.component.initUserSelector = function(jObj, field) {
+
+    jObj.find(".bb-user-selector_search").click(function() {
+	var url = jQuery(this).attr("href");
+	var searchstring = jObj.find("input[name='searchstring']").val();
+	if (searchstring == "") {
+	    jObj.find("input[name='searchstring']").focus();
+	    return false;
+	}
+	var params = {"searchstring": searchstring};
+	var type = jObj.find("input[name='type']").val();
+	if (type != "") {
+	    params["type"] = type;
+	}
+
+	jObj.find("#bb-user-selector-loader, .bb-user-selector_search").toggle();
+
+	jQuery.get(url, params, function (_response) {
+	    jObj.find(".bb-user-selector-nick").removeAttr("style");
+	    var response = BBT.fixJson(_response);
+	    if (response["error"] != 0) {
+		alert(response["message"]);
+		jObj.find("input[name='searchstring']").focus();
+	    } else {
+		var size = 0;
+		jQuery.each(response["userDatas"], function(index, item) {
+		    size++;
+		});
+
+		if (size == 1) {
+		    BBT.component.userSelectorInsertResult(jObj, field, response["userDatas"][0]);
+		} else {
+		    BBT.component.userSelectorInsertResults(jObj, field, response["userDatas"]);
+		}
+
+	    }
+	    jObj.find("#bb-user-selector-loader, .bb-user-selector_search").toggle();
+	});
+	return false;
+    });
+
+    jObj.find(".bb-user-selector-delete").click(function() {
+	jObj.find("input[name='" + field +  "']").val("");
+	jObj.find("input[name='searchstring']").val("");
+	jObj.find(".bb-user-selector-nick").text("");
+	return false;
+    });
+};
+
+BBT.component.filemanager = {
+
+    $el: null,
+    $form: null,
+
+    init: function($obj) {
+
+	this.$el = $obj;
+	this.$form = this.$el.find(".bb-file-upload");
+	var _this = this;
+
+	this.$form.find("input[type='file']").change(function() {
+	    _this.upload(jQuery(this));
+	});
+
+	this.$el.find(".bb-delete").click(function() {
+	    _this.deleteFile(jQuery(this));
+	});
+
+	this.$el.find(".bb-copy").click(function() {
+	    _this.copyClipboard(jQuery(this));
+	});
+    },
+
+    upload: function($inputFile) {
+
+	var file = $inputFile.val();
+	var _this = this;
+
+	this.$form.ajaxForm({
+	    success: function(response) {
+		_this.$el.replaceWith(response["html"]);
+	    },
+	    beforeSubmit: function() {
+		_this.$form.find("input[type='file'], .bb-loading").toggle();
+	    }
+	});
+
+	this.$form.submit();
+    },
+
+    deleteFile: function($obj) {
+
+	if (confirm("¿Está seguro de querer borrar este archivo?")) {
+
+	    var fileId = BBT.getProperty($obj.closest("p"), "bb-fileid");
+	    var contentId = BBT.getProperty($obj.closest("#bb-info-files"), "contentId");
+	    var url = this.$form.attr("action");
+	    _this = this;
+	    jQuery.post(url + "&fileId=" + fileId, function(_response) {
+		var response = BBT.fixJson(_response);
+		if (response["error"] == 0) {
+		    _this.$el.replaceWith(response["html"]);
+		} else {
+		    alert(response["message"]);
+		}
+	    });
+	}
+    },
+
+    copyClipboard: function($obj) {
+
+	var text = $obj.closest("p").find(".bb-url").text();
+	window.prompt("Copiar al portapapeles: Ctrl+C, Intro", text);
+    }
+};
+
+BBT.component.fieldCount = {
+
+    $field: null,
+    $counter: null,
+    chars: 0,
+    limit: 0,
+    init: function($obj) {
+	this.$field = $obj;
+	this.$counter = $obj.closest("div").find(".bb-count-counter");
+	this.chars = $obj.val().length;
+	this.limit = BBT.getProperty(this.$field, "bb-count-limit");
+
+	console.log("Init field counter with chars: " + this.chars + " and limit: " + this.limit);
+
+	_this = this;
+	this.$field.on("keyup", function() {
+	    _this.updateCounter(jQuery(this).val().length);
+	});
+
+	this.updateCounter(this.chars);
+    },
+
+    updateCounter: function(count) {
+	var val = this.limit - count;
+	if (parseInt(val, 10) < 0) {
+	    this.$counter.css("color", "red");
+	} else {
+	    this.$counter.css("color", "green");
+	}
+	this.$counter.text(val);
+    }
+};

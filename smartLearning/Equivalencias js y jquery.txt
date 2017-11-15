@@ -1,0 +1,259 @@
+avaScript equivalent to jQuery basics
+
+... because loading 92Ko of jQuery to use less than 2% of it kind of sucks. Mostly inspired by Doing without jQuery and From jQuery to JavaScript: A Reference.
+Selectors
+$() (IE8+)
+
+var $ = function(el) {
+	 return document.querySelectorAll(el);
+};
+	$('#foo')         = document.getElementById('foo')
+  $('.bar')         =  document.querySelectorAll('.bar') // IE8+,
+  								   document.getElementsByClassName('bar') // IE9+
+
+	$('span')				  = document.getElementsByTagName('span')
+	$('#foo span')	  = document.getElementById('foo').getElementsByTagName('span')
+
+	$('html')				  =document.documentElement
+	$('head')				  =document.head
+	$('body')				  =document.body
+	$('#foo').parent()= document.getElementById('foo').parentNode
+  $('#foo').next()  =document.getElementById('foo').nextElementSibling // IE9+
+										=var next = document.getElementById('foo').nextSibling;
+while( next.nodeType > 1 ) next = next.nextSibling
+
+Attributes
+  $('#foo').html()              =document.getElementById('foo').innerHTML
+  $('#foo').html('Hello world!')=document.getElementById('foo').innerHTML = 'Hello world!'
+  $('#foo').val()								=document.getElementById('foo').value
+	$('#foo').addClass('bar')			=document.getElementById('foo').className += ' bar'
+																 document.getElementById('foo').classList.add('bar') // IE10+
+
+$('#foo').removeClass('bar')		=document.getElementById('foo').classList.remove('bar') // IE10+
+
+function removeClass(elem, className) {
+		var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
+		if (hasClass(elem, className)) {
+				while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
+						newClass = newClass.replace(' ' + className + ' ', ' ');
+				}
+				elem.className = newClass.replace(/^\s+|\s+$/g, '');
+		}
+}
+			
+removeClass(document.getElementById('foo'), 'bar')
+
+$('#foo').hasClass('bar')		=	document.getElementById('foo').classList.contains('bar') // IE10+
+function hasClass(elem, className) {
+		return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+}
+			
+hasClass(document.getElementById('foo'), 'bar')
+$('#foo').toggleClass('bar')	=	document.getElementById('foo').classList.toggle('bar') // IE10+
+
+function toggleClass(elem, className) {
+		var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ' ) + ' ';
+		if (hasClass(elem, className)) {
+				while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
+						newClass = newClass.replace( ' ' + className + ' ' , ' ' );
+				}
+				elem.className = newClass.replace(/^\s+|\s+$/g, '');
+		} else {
+				elem.className += ' ' + className;
+		}
+}
+			
+toggleClass(document.getElementById('foo'), 'bar')
+
+Styles
+$('#foo').hide()=document.getElementById('foo').style.display = 'none'
+								 document.getElementById('foo').style['background-color'] = 'red';
+
+$('#foo').css('background-color', 'red')=document.getElementById('foo').style.backgroundColor = 'red'
+$('#foo').fadeOut(750)=
+function fadeOut(ms, el) {
+		var opacity = 1,
+				interval = 50,
+				gap = interval / ms;
+				
+		function func() { 
+				opacity -= gap;
+				el.style.opacity = opacity;
+				
+				if(opacity <= 0) {
+						window.clearInterval(fading); 
+						el.style.display = 'none';
+				}
+		}
+		
+		var fading = window.setInterval(func, interval);
+
+}
+		
+fadeOut(750, document.getElementById('foo'))
+
+$('#foo').fadeIn(750)= 
+function fadeIn(ms, el) {
+		var opacity = 0,
+				interval = 50,
+				gap = interval / ms;
+				
+		el.style.display = 'block';
+		el.style.opacity = opacity;
+		
+		function func() { 
+				opacity += gap;
+				el.style.opacity = opacity;
+				
+				if(opacity >= 1) {
+						window.clearInterval(fading);
+				}
+		}
+		
+		var fading = window.setInterval(func, interval);
+		
+}
+			
+fadeIn(750, document.getElementById('foo'))
+
+Events
+$(document).ready  =document.addEventListener('DOMContentLoaded', function() { ... }); // IE9+
+
+document.onreadystatechange = function() {
+		if (document.readyState === 'complete') {
+				// DOM is ready!
+		}
+};
+
+$('#foo').on('click', function() { ... }) = document.getElementById('foo').addEventListener('click', function() { ... }); // IE9+
+																						document.getElementById('foo').onclick    = function() { ... }
+
+Others
+$('#foo').append('<div id="a">b</div>')   = document.getElementById('foo').insertAdjacentHTML('beforeend', '<div id="a">b</div>')
+																						document.getElementById('foo').innerHTML += '<div id="a">b</div>';
+																					var div = document.createElement('div');
+																					div.id = 'a';
+																					div.appendChild(document.createTextNode('b'));
+																							document.getElementById('foo').appendChild(div);
+
+$('#foo').prepend('<div id="a">b</div>')=	document.getElementById('foo').insertAdjacentHTML('afterbegin', '<div id="a">b</div>');
+$('#foo').before('<div id="a">b</div>') = document.getElementById('foo').insertAdjacentHTML('beforebegin', '<div id="a">b</div>');
+$('#foo').after('<div id="a">b</div>')  =document.getElementById('foo').insertAdjacentHTML('afterend', '<div id="a">b</div>');
+$('#foo').remove()											=document.getElementById('foo').parentNode.removeChild(document.getElementById('foo'))
+
+
+
+
+
+var url = "mihtml.html"; $(location).attr('href',url); =window.location.href = "http://www.bufa.es";
+
+
+
+//location.assign("http://localhost:8080/disenio_limpio3/index.php?op=contactanos"); */
+
+
+
+
+
+
+
+
+
+
+
+Bufff cuántas preguntas en un mismo post. Aver si puedo contestarlas todas.
+Lo primero de todo es que algo como esto:
+Código:
+elemento.onfocus = function(){ ... };
+elemento.onfocus; // "function(){ ... };"
+No es cierto. Eso te devolvería un handler, o sea, una referencia a la función que asignaste.
+Lo de asignar los eventos, lo puedes hacer mediante el Model Event level 2, es decir, usando attachEvent/addEventListener. Esto hace que puedas añadir las funciones que quieras a un mismo evento sin que estas se "pisen".
+Lo de asignar los eventos a todos los inputs, aunque sean dinámicos, sinceramente no estoy seguro, podrías usar un setInterval, pero no es una solución limpia ni adecuada. Sé que jQuery tiene una función live, pero no me he parado a ver cómo funciona.
+Por último, el evento que buscas es oncontextmenu.
+Saludos (:
+Respuesta: Cambiar valor del textbox que tenga el foco
+Gracias a los tres he conseguido solucionar el problema, esta es la función:
+
+Código Javascript:
+Ver original
+var thisText;
+ 
+function insertCode(data) {
+		thisText.value = thisText.value+'!'+data+'!';
+}
+ 
+window.oncontextmenu = function(evt) {
+		var evt = evt || event, elem = evt.target || evt.srcElement; // DOM || IE;
+		if(/input/i.test(elem.nodeName) && /text/.test(elem.type) || /textarea/i.test(elem.nodeName))
+		return thisText = elem;
+}
+ 
+chrome.extension.onRequest.addListener(function(request) {insertCode(request.code)});
+ Botón que enlaza a otra página
+11 febrero 2011 Principe Advenis	
+
+No siempre se necesita crear un enlace, ya que por cuestiones estéticas de la página se requiere crear botones enlazables, pues bien aquí dejo en consideración el código embebido en PHP, tiene un ejemplo adicional de un enlace tradicional con imagenes..El siguiente código esta divido por:
+
+		Etiqueta php (apertura y cierre)
+		La etiqueta de botón de enviar
+		nombre de la etiqueta que puede usarse para identificación
+		El valor del botón (para este caso ‘Guardar’), usado como variable
+		La función Jscript onclick que consta de:
+
+		Identificador de función para abrir ventanas window.location y la dirección de la pagina (para mi ejemplo este envía variables) y detalles adicionales de la ventana consultar la función window.open
+
+<?php 
+	echo "
+				 <input type='submit' 
+								name='Enviar' 
+								value='Guardar' 
+								onclick='window.open('Pagina.php?Variable1=$Variable2&Valor=si
+								'','toolbar=no,
+								directories=no,
+								menubar=no,
+								status=no,
+								scrollbars=yes')'
+				> "; 
+
+ function Anterior($Referencia)
+ {
+	 echo "
+					<input type=\"button\" 
+					onclick=\"window.location='$Referencia?&Pagina=$Referencia'\" 
+					value=\"Retornar\" 
+					name=\"Retornar\">
+			 ";
+ }
+ Anterior("OtraPagina.php");
+ ?> 
+
+Otra opción a probar:
+
+ <?php
+			echo "
+						<input type='submit'
+									 name='Enviar'
+									 value='Guardar'
+									 onclick='window.open('PaginaRef.php?Variable=$Variable&Valor=si
+						'','toolbar=no,directories=no,menubar=no,status=no,scrollbars=yes')'>
+						<a href='Pagina.php' target='principal'
+							 style='position:absolute;
+							 width:48px;
+							 height:14px;
+							 title='Cancelar eliminado'>
+						<a href='Pagina.php'
+							 target='principal'
+							 style='position:absolute;
+							 width:48px;
+							 height:14px;
+							 title='Cancelar borrado'
+					 >
+					 <img src='../Imagenes/Cancelar.png'
+								border='0'
+								alt='Cancelar'
+								title='Cancelar borrado'
+								target='principal'
+								longdesc='OtraPgina.php' />
+					 </a>
+					";
+?>

@@ -1,0 +1,3 @@
+window.CM8DispatcherApps=window.CM8DispatcherApps||[];
+window.CM8DispatcherApps.push('http://sage.checkm8.com/adam/detected?cat=social_science_humanities.psychology_counseling.psi&page=00686890869078538&serial=1000:1:A&&LOC=http://journals.sagepub.com/stoken/rbtfl/0GSjhNaccRKTY/full&WIDTH=1920&HEIGHT=900&WIDTH_RANGE=WR_E&DATE=20171114&HOUR=09&OS=WIN7&JE=0&UL=es&RES=RS20&RESW=1920&RESH=1080&ORD=8656152466230072&req=fr&&76.28.207.224&~=&');
+document.write("<SCR"+"IPT TYPE='text/javascript' SRC='http://sage.checkm8.com/dispatcher_scripts/browserDataDetect.js?Ver=101'></SCR"+"IPT>");

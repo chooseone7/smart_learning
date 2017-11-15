@@ -1,0 +1,422 @@
+
+
+Áreas de la memoria 
+Hipocampo:Encarga de recibir la información
+Amigdala:Procesar las emociones, recuerdos, experiencias
+Corteza cerebral:Recorre todo nuestro, memoria a largo plazo, lenguaje, visual, etc
+Neurona y newrotransmisorer: internet de nuestro  cerebro 
+ Mejorar la memoria:
+  Hablar positivamente, 
+  Ejercitar el cerebro y el cuerpo,
+  Involucra tantos sentidos como puedas
+
+Etapas d la memoria
+Adquisición: nueva información
+Consolidación: guarda información
+Recuperación: Recordar información
+
+Super memoria
+  Capacidad
+      Consciente->Elegir, Razonar
+      Subconsciente - Pensar, memorizar, concentración(no hay control)
+        Técnicas: 
+En la escuel de aviación, yo estudiaba por la mañana y volaba por la tarde. Gracias a eso entendí que ESTUDIAR sin APLICAR los cnocomientos es una PÉRDIDA de tiempo" Rober Kiyosafi
+Leer cuando tenga agilizada la memoria y lectura
+Memorizar de tres formas
+    RACIONAMIENTO
+    REPETICIÓN
+    ASOCIACIONES INVERSÍMILES - Importantísimo
+/*
+
+
+*/
+La Fotolectura es un método de lectura creado por Paul
+Scheele que se engloba dentro de las técnicas alternativas de lectura junto con
+los de la denominada Lectura Rápida. Presuntamente permite alcanzar
+altas velocidades de lectura al activar y utilizar ambos hemisferios cerebrales, basándose en una
+supuesta capacidad del hemisferio derecho del cerebro de “fotografiar”
+mentalmente cosas tales como páginas de libros, la cual es una tesis que no
+parece tener sustento real desde el punto de vista neurocientífico
+serio. Tampoco ha sido demostrada la presunción que este método hace de poder
+activar regiones de la corteza
+cerebral diferentes a las que normalmente intervienen en el proceso de
+lectura
+regular y no se tiene certeza de que semejante fenómeno neurológico
+sea siquiera posible. En cualquier caso, la Fotolectura no cuenta con ningún estudio riguroso e imparcial que respalde sus
+supuestos ni tampoco registra el uso de exámenes de fMRI para demostrar que
+sus planteamientos son ciertos o que el método realmente funciona. Los pocos
+experimentos realizados al respecto de la Fotolectura arrojaron resultados
+negativos sobre su eficacia real. 1﻿
+
+
+Lectura VER
+        LEER
+        PROCESAR, RÁPIDAMENTE
+
+        Ventajas
+         1) Ahorrar tiempo
+         2) Procesamiento mental mejora - video mental
+         3)  Comprenshion
+         4) Concentración
+         5) Superacion personal
+
+Ejercicios de lectura rápida
+      Palabras - pal. aleatorias, diferentes velocidades, pero rpáida, en diferentes posiciones
+                  determinar el tiempo y secuencia en días
+      Grupos I - 3 palabras, dispuestas en forma de triángulo, diagonal,  vertical, y horizontal
+      Grupos II - Vertical y por fila, dos palabras, diferentes anchos(5)
+                  Luego grupos de 3(2 tipos)
+      Asociativo
+      Texto II         
+
+
+Sepal, rosal, probar, estos, pelón, fijan, ayuda, partes, talla,cáliz, dulce, vino, cristal, ayuda, hielo, crece, tallo, cortar roble,     
+Jalca, sobre, nubes, mayor, paso, clima, cactus, laguna, manso, salón, vocal, vidrio, bondad
+papel, fruto, parte, carne, todos noche, carmen, nivel, marea, varia, zonas, jalca,, sobre, nubes,
+mayor, paso, clima, catus, laguna, manso, slón, vocal, vidrio, bondad, papel, fruto, parte, 
+cane todos noche carme nivel mare(repetir en sección de 3 columnas) y de 4 columnas 
+
+
+Facidlidad estudio h6
+Facidlidad estudio h5
+Facidlidad estudio h4
+Facidlidad estudio h3
+Facidlidad estudio h2
+Facidlidad estudio h1
+Por hoja
+
+Progreso compendio h6
+
+...................
+
+Fase lectura del texto, Resaltar por pequeños párrafos: alrededor de 10 palbras, 48 caracteres
+
+      Crear el campo visual al centro, y parte posterior de la palabra
+
+
+
+
+Foto-reading -
+hoja blip
+conto interno
+aceptación de emociones
+integración 
+
+
+Areas de Marco S.
+Lógica - Matemática
+Linguística - Leer
+Interpersonal - predicar, enseñar
+Intrapersonal - meditar, repasar escenas, experiencias mias y de los demás, autoestima
+Musical  - tocar guitarra, cantar
+Espacial - dibujar, diseñar
+Kinestésica - calistenia, soccer, luchas
+
+
+LECTURA SILABIAL V- V Pronuncia lo que dice
+3 meses en aprender y una hra por día
+
+lectura mala - malos hábitos
+
+1lenta percepción palabra por palabra, distracción
+2estrecho campo visual  -una página standar tiene entre 400 y 500 palabras, imaginate cuantas veces movemos el ojo->cancsancio, sueño
+3 vocalización y sub-vocalización- 
+Ver la tapa del libro
+
+Preparación,
+prelectura
+foto-lectura
+actuvacupb
+brain-mappint
+
+LECTURA
+
+Los desarrolladores de Spritz explican que durante la lectura solo el 20% del tiempo se dedica a la comprensión del contenido, ya que el resto lo dedicamos al movimiento de los ojos para ir recorriendo el texto y escaneando el siguiente ORP, o Punto de Reconocimiento Óptimo: un punto preciso de la palabra que permite reconocerla rápidamente.
+
+Técnicas de lectura rápida como el skimming (no leer todas las palabras), sub-vocalizar (hablarnos a nosotros mismos mientras leemos) u otros logran mejorar esa velocidad de lectura, pero solo mediante continuo entrenamiento y dedicación.
+
+Con Spritz ese entrenamiento no es necesario, aunque sí es cierto que gradualmente podremos ir aumentando la velocidad de lectura, que según los creadores del método puede llegar a ser de hasta 1.000 palabras por minuto.
+
+En Spritz quieren hacer que su método, al que llaman spritzing, esté disponible para todo tipo de aplicaciones y sitios web, y para ello han creado una serie de herramientas como un SDK y APIs para Android, iOS y JavaScript que pueden hacer que los desarrolladores implementen esta técnica de lectura en esas aplicaciones y sitios web.
+
+Parece que los primeros dispositivos en ofrecer esta tecnología serán el Samsung Galaxy S5 y el reloj inteligente Samsung Gear 2, pero en Spritz están trabajando con otros fabricantes de smartphones y de dispositivos wearable para integrar un sistema de lectura que está disponible de momento en inglés, español, francés, alemán, ruso, y coreano.
+
+Alternativas independientes: la moda del spritzing comienza a extenderse
+
+Como era de esperar, varios desarrolladores han tomado prestada la idea, y dado que Spritz no está de momento disponible para sitios web o aplicaciones de forma real, sí que podremos utilizar este método de lectura rápida gracias a desarrollos como OpenSpritz.
+
+
+
+****************
+
+Elkin Hernandez, 1983 colombiano
+MÁS DE 18 AÑOS DE EXPERIENCIA,  a 12 año se encontró MÉTODO
+NEMOTECNIO, NEURENTRENAMIENTO, CONCENTRACIÓN, 
+certificado en la ciencia de la memoria, graduado de psicología, coach
+Demostración
+1800 datos < 1 hora y media
+numéricos, históricos, etc.
+
+Método de enseñanzas tradicionales
+memorismo- no lo ideal
+memoria inteligente - facultad de poder fijar cualquier tipo de información
+                        a alta velocidad(VELOCIDAD que escribo y esucho), el dado preciso, de larga duración
+
+     Obstáculos                  
+1) Creencia limitante, no creo, no puedo, tengo mala memoria
+
+1 paso : conciencia
+2 paso : métodos y técnicas
+3 paso :
+
+Como funciona nuestro cerebro
+
+nemo - memoria
+tecne - ciencia, técnica
+Hacemos mal uso de la memoria, cultivo de la pereza intelectual
+memoria depende más de la salud, hábitos que de la edad
+
+Todo en el universo es mente, resultado de la mente y corazón
+Mente consciente y subconsciente:
+c:5% gobierna
+s:la única que graba y memoriza, 95% de mi vida
+   graba como un celular, sin omitir. Repet en las palabras
+   se van a la mente consciente->pensamientos->sentimientos->hábitos, conductas, comportamiento->caracter
+se programa la vida personal que tengo
+Hacer uso positivo del pensamiento, es decir no ser negativo y bendecir.
+
+
+
+-Entender y vencer una creencia limitante
+ -Serenidad para aprender, sin angustia, problemas de atención, 
+                  concentración, sino autocontrol emocional
+ -Experto en sinestesia(juntar los sentidos)
+
+
+- Esfuerzo sostenido                
+Aristóteles:
+No hay nada entendimiento en del ser humnao que antes no haya
+pasado por los sentidos
+
+Neuronas terminaciones dendritas, se conectan->sinapsis-> a base de conexiones neuronales (emoción y sentimiento)-> 
+recuerdo
+
+La mujer es más afectiva, recuerda generalmente más
+ 1-color
+ 2-movimiento
+ 3-exageración->tamaño, cantidad, sonida, olor(pino,eucalipto), 
+            sabor(agridulce), tacto(aspero)
+   rutina y constancia
+imagenes, sensaciones, como en el canto
+
+igual para dejar los malso hábittos
+Mi mente needs a casillero
+
+
+TRABAJAR EXTRA CON TALENTOS, IDEAS AJENAS, ETC
+aplicar a las deduas pequeñas primero
+entrenarnos para acostumbrarnos pagar y liberar ésa energía
+y por éso se empieza por las más pequeñas
+**************************************************************
+Alfabético - se empieza por enseñar cada letra del alfabeto y 
+            y luego combinarlas
+Fonético - se centra en el sonido de la letra y no en el nombre
+         blas pascal - juan amos comenio
+
+Silábico  para poder pronunciar consonantes, se combinan con vocale . Federico Gedike y Samiel Hinicke  
+
+Global - se empieza con palabras y fonemas luego se van descomoniendo
+Eclécico - combinación de todos los metdos
+Método alfabético      
+
+Dionissio Halicarnaso 
+
+BUscarle al niños conocimiento previo
+dificultad: 
+no hay conocimiento previo y asociar las letras
+Cómo hacer que la enseñanza de la lectura se dé dentro del constructivismo
+y el aprendizaje significativo
+la institución va abolir por completo la referencia a la
+letra en el proceso lector(escritura si)
+
+Glenn Doman
+Cromosoma 21 repetido
+
+
+En lectura nada de letras 
+Casilleros mentales:
+carpetas, gabetas donde voy a guardar la información
+1PUERTA> 2PASILLO >3SALA>4>BALCÓN>5COMEDOR
+      6>COCINA>7BAÑO>8>CUARTO>9ESCALERAS 10 >GARAJE
+
+
+Inteligencia: una forma de actuar y de pensar
+IQ- Es maleable sobre una amplia gama. It is a matter of self-concepto.
+Nuestro cerebro tiene más cap de la que creemos,
+podemos aprender a aprender. Si aprendo matemáticas, tengo más capacidad a la hora de apredner historia, ...
+Mientras más aprendamos más capacidad para aprender otra cosa
+Principio
+Si guiere ganar más , debe aprender más
+
+"Cenelidad, indicio de que dejaron de leer buen tiempo:
+reflejos, inteligencia, alerta"
+
+Giogi Lazona
+Cuerpo cayoso, divide los dos hemisferios del cerebro
+niños hasta los 5,6 años aprenden más que la taza adulta
+L              R
+Verbal               pictográfico
+Analítico            holistico(hechos, imagen)
+pragmático           intuitivo
+concreto          abstracto
+lineal               musical     
+secuencial           artístico(espontáneo -humor)
+lenguage(orden lógico) danza y poesia
+matemática
+
+En onda cerebrales
+nivel beta -14 ondas/segundos o más
+nivel alfta - 8-13 ondas/segundos ciclos por segundo-relajación profunda
+nivel teta - 5-7 ondas/seg - cuando estamos por soñar-sueño;  alfa-teta - esdonde aprendamos mejor
+nivel delta - 1 a 4 ondas/seg
+
+
+Leer desde el viente
+Realizar lecturas de manera feliz, buen ambiente
+Global
+Flash card
+alta fijación por repetición
+5 series, 3 veces al día, 5 días a la semana
+
+Hay tres áreas del desarrollo que considero son fundamentales hoy día para un estudiante. La lectura,
+ La Matemática y el Inglés.
+Con el programa YO SOY MUY INTELIGENTE los niños logran:
+· Leer fluidamente y comprendiendo.
+· Excelente ortografía.
+· Corrige dislexias.
+· Alto rendimiento académico.
+· Construir buena autoestima.
+· Desarrollar pensamiento positivo.
+· Hábito de lectura.
+· Aprenden más fácil un segundo idioma.
+· Logran un desarrollo emocional más equilibrado.
+
+ADEMÁS
+
+Nivela niños con problemas de aprendizaje.
+Corrige la lectura silábica.
+La solución para niños que no han aprendido a leer.
+Utilizado con éxito en terapia de lenguaje. 
+Ideal como metodología en Jardines y Colegios.
+
+******
+hacking memory
+
+
+estimulación
+Profesor :/
+falta de motivación, uso de celulares, apati, distracción, ausencia
+
+El sistema nervioso está preparado para funcionar en tres modos
+   1era función del cerebro
+      Aferente, Sensitivo
+   2da Procesamiento -análisis, retención, Descarte
+   3ra Eferente respuesta
+   al verbo le interesa sobrevivir
+
+
+   Técnicas de aprendizaje rápido:
+La inteligencia no es questión de IQ,
+es una forma de actuar y de pensar. El IQ es maleable.
+
+-La inteligencia se desarrolla a través del esfuerzo, como los músculos.
+Como las personas empresarios de éxito, deportistas, ingenieros, etc.
+Muchas personas por los antecedentes que "Tienen" sobre si mismo, son pobres
+entonces descartan su potencial no descubierto.
+
+-La capacidad de aprendizaje es maleable
+  Podemos aprender a aprender. Mientras más aprenda mejor,
+  matemáticas, física, historia, a peinar, jugar, etc.
+  Es decir si aprendí de historia, tendré mayor capacidad de aprender filosofía, y matemática, ...
+- Si quiere ganar más, aprenda más
+- Longevidad y aprendisaje.- Existe una relación entre ambas.
+  Senilidad(personas que dejaron de leer hace mucho tiempo y mucha televisión)
+  Mientras más activa se mi mente más viviré.
+  Hettel creo la segunda parte del fausto a los 85 años,
+  La abuela mosses comenzó a pintar a la edad de 75 años, y aún pintaba a los 100 años. Albert Swatcher completaba su jornada a los 91 años
+**
+
+Giogi Lazonu -El super aprendizaje, aprendizaje acelerado
+ Basado en los 2 hemisferio de trabajo
+ derecho :pictórico, artístico, holístico, intuitivo, abstracto(filosófico),
+ músical, espontáneo(responsable del sentido del humor),danza y poesía
+
+
+ izquierdo :verbal, analítico, pragmático, concreto(tocar, probar, tener o sentir), lineal(en orden), secuencial(cosas una a la vez), responsable de
+ la formación de oraciónes con sentido lógico, matemáticas
+ Ambos deben armonizar
+ cuerpo cayoso divide los hemisferio
+ Los niños hasta los 5 o 6 años, aprenden hasta 25 veces más que la taza adulta
+
+Las personas aprenden a diferente niveles de ondas cerebrales, y como resultado de diferentes cosas:
+
+ 1° Beta - 14 ONDAS POR SEGUNDOS - ONDAS NORMAL -
+    Cuando la mente está activa la actividad de onda cerebral 
+    Aprendizaje menos eficientemente
+ 
+ 2° Alfa 8-13 ondas o ciclos por segundos - Estado de relajación profunda
+   Cuando soñamos despiertos, antes de irnos a dormir
+
+ 3° Teta   de 5-7 ondas por seg. - Area de alucinación o ilusionismo, apuntos de empezar
+
+ 4° Delta - 3 a 4 ondas por seg. ondas laaargas
+            a dormir.
+
+
+
+
+
+
+  Felipe Bernal Montes
+A Felipe Bernal se le conoce por haber desarrollado el curso Lectura Ágil con el software de entrenamiento Ágilector, un sistema simple y efectivo que permite a las personas mejorar su velocidad de lectura sin perder comprensión de lo que están leyendo.
+
+Hoy en día el conocimiento es poder y Felipe está convencido que la habilidad de leer y comprender rápidamente es la ventaja competitiva que nos permite prosperar en este mundo de la información.
+
+Su misión es enseñar lectura y comprensión rápida a 1.000.000 de personas en los próximos 10 años.
+
+Felipe ha sido entrevistado en varios medios incluyendo Radio Nacional de España y Radio Caracol en Colombia y su curso forma parte del directorio de Sistemas no Propietarios del Ministerio de Educación, Cultura y Deporte en España.
+
+
+9la falta de buen sueño empeora la memoria
+   Univ. Californi en Berkley -Alzheimer
+   Por razones de las celulas que destruyen compuestos químicos negativos para la salud
+8Estrés prolongado destruye el cerebro
+ Disminución de la memoria, de la capacidad de aprender, del autocontrol, resultado:
+ irritación, ansiedad, tensión y distracción fácil
+
+ 7Amor y odio en común-científicos británicos
+  El amor reduce significat. la actividad de las áreas responsables del juicio y el pensamiento lógico.
+  6 EL cerebro es sensible a la deshidratación, deteriroro a corto plazo(pérdido del 2% del 80% de lo que está compustto el cerebro produce deteriorio)
+
+  5 - El emabrazo cambia la estructura del cerebro, 
+    reduce la cantidad de materia gris en las áreas
+    cerebrales responsables de lacognición y la capacidad de entender a otras personas-necesario para conexion mamá y bebe
+    4 Cantidad exesiva de azúcar empeora la memoria,
+      ralentiza el cerebro su capacidad de aprender, recordar y concentrarse; Destruye las conexiones neuronales. Azúcar industrializada peor que la fructuosa.
+      Sin embargo, productos con ácidos grasos, omega3(nueces, pescados y aceite de bacalao)elimina los estragos del transtorno.
+3 el amor materno y el romántico son muy similares, pero hay diferencias
+Amor apasionado:
+  activa áreas cerebrales relacionadas con la exitaci´no sexual; Además, sensación de ansiedad y miedo disminuyen y sensación de euforia aumenta. No en la materna, que aumentan      
+  2 La pintura mejora la actividad cerebral
+  Se ralentiza mi envejecimiento
+  1 Lectura (oxford) ejercita el cerebro, activa área que no se usan en otras ocasiones.
+  Al leer, la sangre entra en las áreas cerebrales responsables de la concentración y cognición
+
+4 ejercicios para preservar tu memoria
+Programar todo esto:
+Texto multicolor
+amarillo(azul), rojo(verde), cafe(celeste), azul(rojo), verde(amarillo)
+
+Junio 1972 apple 2
+
+  Que dcn los garabatos de mi            

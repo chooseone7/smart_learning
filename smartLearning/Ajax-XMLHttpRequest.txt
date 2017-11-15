@@ -1,0 +1,30 @@
+Warning: This should not be used with synchronous requests and must not be used from native code.
+SyntaxEdit
+
+XMLHttpRequest.onreadystatechange = callback;
+Values
+callback is the function to be executed when the readyState changes.
+ExampleEdit
+
+var xhr = new XMLHttpRequest(),
+    method = "GET",
+    url = "https://developer.mozilla.org/";
+
+xhr.open(method, url, true);
+xhr.onreadystatechange = function () {
+  if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+    console.log(xhr.responseText);
+  }
+};
+xhr.send();
+
+open(method, url, async) - Specifies the type of request
+
+
+Question #1
+How do I find the JSON endpoint URLs?
+Question #2
+Is there a better way to create HTML with JavaScript?
+Question #3
+Handlebars.js
+What about error handling for our AJAX requests?

@@ -1,0 +1,512 @@
+
+var edi = edi || {};
+edi.google = edi.google || {};
+
+// IIFE
+edi.google.datalayer = {
+
+    config: {
+
+	// Se ignoran los clicks en aquellos elementos con esta clase.
+	ignoreClickClass: ["gdatalayer_none"],
+
+	// Determina que botón del ratón desencadena los eventos click capturados
+	clickEvents: "both",
+	// none = ninguno
+	// left = boton izquierdo
+	// right = boton derecho
+	// both = ambos botones
+
+	// Captura eventos de click en iFrame
+	iFrameEvents: true,
+
+	// Capturar eventos de google
+	googleEvents: true,
+
+	// Capturar eventos de facebook
+	facebookEvents: true,
+
+	// Capturar eventos de twitter
+	twitterEvents: true,
+
+	// Capturar eventos de login
+	loginEvent: true,
+
+	// Capturar eventos de registro
+	registerEvent: true
+    },
+
+    datas: {
+
+	// Requieren tener class para ser localizados
+	clickEvents: [
+
+	    {"id": "clickMeneame",           datas: {'socialnetwork': 'meneame',   'socialaction': 'share',    'socialtarget': '', 'event': 'socialbutton'}, "class": "gdatalayer_meneame"},
+
+	    // Añadimos las clases de mobile
+	    {"id": "clickFacebook",          datas: {'socialnetwork': 'facebook',   'socialaction': 'share',    'socialtarget': '', 'event': 'socialbutton'}, "class": "gdatalayer_facebook"},
+	    {"id": "clickTwitter",     datas: {'socialnetwork': 'twitter',   'socialaction': 'share',    'socialtarget': '', 'event': 'socialbutton'}, "class": "gdatalayer_twitter"},
+	    {"id": "clickWhatapp",           datas: {'socialnetwork': 'whatsapp',   'socialaction': 'share',    'socialtarget': '', 'event': 'socialbutton'}, "class": "gdatalayer_whatsapp"},
+	    {"id": "clickGoogleplus",           datas: {'socialnetwork': 'g+',   'socialaction': 'share',    'socialtarget': '', 'event': 'socialbutton'}, "class": "gdatalayer_googleplus"},
+
+	],
+
+	iFrameClickEvents: [
+
+	    {"id": "fbSocialShare",          datas: {'socialnetwork': 'facebook',  'socialaction': 'share',    'socialtarget': '', 'event': 'socialbutton'}, "class": "fb-share-button"}
+
+	],
+
+	otherEvents: [
+
+	    {"id": "gplusSocialShare",      datas: {'socialnetwork': 'g+',       'socialaction': 'share',    'socialtarget': '', 'event': 'socialbutton'}},
+
+	    {"id": "fbSocialLike",          datas: {'socialnetwork': 'facebook', 'socialaction': 'like',     'socialtarget': '', 'event': 'socialbutton'}},
+
+	    {"id": "twitterSocialTweet",    datas: {'socialnetwork': 'twitter',  'socialaction': 'Tweet',    'socialtarget': '', 'event': 'socialbutton'}},
+	    {"id": "twitterSocialRetweet",  datas: {'socialnetwork': 'twitter',  'socialaction': 'Retweet',  'socialtarget': '', 'event': 'socialbutton'}},
+	    {"id": "twitterSocialFavorite", datas: {'socialnetwork': 'twitter',  'socialaction': 'favorite', 'socialtarget': '', 'event': 'socialbutton'}},
+	    {"id": "twitterSocialFollow",   datas: {'socialnetwork': 'twitter',  'socialaction': 'follow',   'socialtarget': '', 'event': 'socialbutton'}},
+
+	    {"id": "loginMainOk",           datas: {'category': 'Interacción',  'action': 'Login',   'label': 'usuario', 'event': 'eventga'}},
+	    {"id": "loginMainError",        datas: {'category': 'Error',        'action': 'Login',   'label': 'Usuario o contraseña incorrectos', 'event': 'eventga'}},
+
+	    {"id": "loginFacebookOk",       datas: {'category': 'Interacción',  'action': 'Login',   'label': 'facebook', 'event': 'eventga'}},
+	    {"id": "loginFacebookError",    datas: {'category': 'error',  'action': 'Login',   'label': 'facebook', 'event': 'eventga'}},
+
+	    {"id": "loginCommentOk",        datas: {'category': 'Interacción',  'action': 'Login',    'label': '', 'event': 'eventga'}},
+	    {"id": "loginCommentError",     datas: {'category': 'Error',        'action': 'Login',    'label': '', 'event': 'eventga'}},
+
+	    {"id": "userLogin",             datas: {'category': 'Interacción',  'action': 'Login',    'label': '', 'event': 'eventga'}},
+
+	    {"id": "userRegister1",         datas: {'category': 'Interacción',  'action': 'Login',    'label': '', 'event': 'eventga'}},
+	    {"id": "userRegister1Ok",       datas: {'category': 'Conversion', 'action': 'Registro', 'label': 'Paso 1', 'event': 'eventga'}},
+	    {"id": "userRegister1Error",    datas: {'category': 'Error', 'action': 'FormularioRegistro', 'label': 'error', 'event': 'eventga'}},
+	    {"id": "userRegister2",         datas: {
+	    	// 'virtualUrl': '/usuarios/registro_2', 'event': 'virtualurl' // eliminando virtual urls en nuevos formularios
+	    }},
+	    {"id": "userRegister2Ok",       datas: {'category': 'Conversion', 'action': 'Registro', 'label': 'RegistroOK', 'event': 'eventga'}},
+	    {"id": "userRegister2OkSocio",  datas: {'forma_pago': '', 'category': 'Conversion', 'action': 'Registro', 'label': 'Paso2', 'event': 'eventga'}},
+	    {"id": "userRegister2Error",    datas: {'category': 'Error', 'action': 'FormularioSocio', 'label': 'error', 'event': 'eventga'}},
+	    {"id": "userRegister2OkEnd",    datas: {}},
+
+	    {"id": "userRegister",          datas: {'category': 'Interacción',  'action': 'Register', 'label': '', 'event': 'eventga'}},
+
+	    {"id": "commentSentOk",         datas: {'category': 'Interacción',  'action': 'Comentar',    'label': '', 'event': 'eventga'}},
+		{'id': 'ee_payment', 			datas: {'category': 'commerce', 'event': 'ee_eventPayment'}}
+	]
+    },
+
+    init: function () {
+
+	var _thisDatalayer = this;
+
+	// Eventos click
+	if (_thisDatalayer.config.clickEvents == "left"
+	    || _thisDatalayer.config.clickEvents == "right"
+	    || _thisDatalayer.config.clickEvents == "both" ) {
+
+	    // Captura de evento preventDefault
+	    var originalPreventDefault = Event.prototype.preventDefault;
+	    Event.prototype.preventDefault = function() {
+		if (this.type == "click") {
+		    _thisDatalayer.onClick(this);
+		}
+		originalPreventDefault.apply(this, arguments);
+	    }
+
+ 	    jQuery(document).on("click", function (e) {
+ 		_thisDatalayer.onClick(e);
+ 	    });
+	}
+
+	// Eventos click de iFrame
+	if (_thisDatalayer.config.iFrameEvents == true) {
+
+	    if (typeof _thisDatalayer.datas.iFrameClickEvents != "undefined"
+		&& _thisDatalayer.datas.iFrameClickEvents.length > 0) {
+
+		jQuery(document).ready(function() {
+		    _thisDatalayer.datas.iFrameHoverStates = {};
+
+		    jQuery.each(_thisDatalayer.datas.iFrameClickEvents, function(index, value) {
+			_thisDatalayer.datas.iFrameHoverStates[value.id] = false;
+			jQuery("." + value.class).hover(function() {
+			    _thisDatalayer.datas.iFrameHoverStates[value.id] = true;
+			}, function() {
+			    _thisDatalayer.datas.iFrameHoverStates[value.id] = false;
+			});
+		    });
+
+		    jQuery(document).blur(function() {
+			for (var id in _thisDatalayer.datas.iFrameHoverStates) {
+
+			    if (_thisDatalayer.datas.iFrameHoverStates[id] == true) {
+				var result = false;
+				for (var i = 0; i < _thisDatalayer.datas.iFrameClickEvents.length; i++) {
+				    if (_thisDatalayer.datas.iFrameClickEvents[i].id == id) {
+					result = jQuery.extend({}, _thisDatalayer.datas.iFrameClickEvents[i]);
+				    }
+				}
+
+				if (result != false) {
+				    if (result.datas.socialtarget == "") {
+					result.datas.socialtarget = document.URL;
+				    }
+
+				    _thisDatalayer.launchEvent(result);
+				}
+
+			    }
+			}
+		    });
+		});
+	    }
+	}
+
+	// Facebook
+	if (_thisDatalayer.config.facebookEvents == true) {
+	    _thisDatalayer.facebookEventsInit();
+	}
+
+	// Twitter
+	if (_thisDatalayer.config.twitterEvents == true) {
+	    _thisDatalayer.twitterEventsInit();
+	}
+
+	// Eventos capturados desde cookies
+	if (_thisDatalayer.config.loginEvent == true) {
+	    _thisDatalayer.checkCookie('d6ece92ef4de32f5a8ed941f1e170a27', "userLogin", edi.google.userData());
+	}
+
+	if (_thisDatalayer.config.registerEvent == true) {
+	    _thisDatalayer.checkCookie('98ac11437951a8cb0345dc544964d5d6', "userRegister", edi.google.userData());
+	}
+
+	// Captura de eventos
+	if (_thisDatalayer.config.loginEvent == true) {
+	    _thisDatalayer.eventCapture("gdatalayer_event_login_main_ok", "loginMainOk");
+	    _thisDatalayer.eventCapture("gdatalayer_event_login_main_error", "loginMainError");
+
+	    _thisDatalayer.eventCapture("gdatalayer_event_login_comment_ok", "loginCommentOk");
+	    _thisDatalayer.eventCapture("gdatalayer_event_login_comment_error", "loginCommentError");
+
+	    _thisDatalayer.eventCapture("gdatalayer_event_login_facebook_ok", "loginFacebookOk");
+	    _thisDatalayer.eventCapture("gdatalayer_event_login_facebook_error", "loginFacebookError");
+
+	    _thisDatalayer.eventCapture("gdatalayer_event_comment_sent", "commentSentOk");
+
+	    _thisDatalayer.eventCapture("gdatalayer_event_register_1", "userRegister1");
+	    _thisDatalayer.eventCapture("gdatalayer_event_register_1_error", "userRegister1Error");
+	    _thisDatalayer.eventCapture("gdatalayer_event_register_1_ok", "userRegister1Ok");
+	    _thisDatalayer.eventCapture("gdatalayer_event_register_2", "userRegister2");
+	    _thisDatalayer.eventCapture("gdatalayer_event_register_2_ok", "userRegister2Ok");
+	    _thisDatalayer.eventCapture("gdatalayer_event_register_2_ok_socio", "userRegister2OkSocio");
+	    _thisDatalayer.eventCapture("gdatalayer_event_register_2_error", "userRegister2Error");
+	    _thisDatalayer.eventCapture("gdatalayer_event_register_2_ok_end", "userRegister2OkEnd");
+		_thisDatalayer.eventCapture("gdatalayer_event_ee_payment", "ee_payment");
+	}
+
+    },
+
+    onClick: function (event) {
+
+	var _thisDatalayer = this;
+
+	var exitMethod = true;
+	if (_thisDatalayer.config.clickEvents == "left"
+	    && event.button == 0) {
+	    exitMethod = false;
+	} else if (_thisDatalayer.config.clickEvents == "right"
+		   && event.button == 2) {
+	    exitMethod = false;
+	} else if (_thisDatalayer.config.clickEvents == "both"
+		   && (event.button == 0 || event.button == 2)) {
+	    exitMethod = false;
+	}
+	if (exitMethod) {
+	    return false;
+	}
+
+	var target = event.target;
+	// Si el item contiene alguna clase a ignorar, no continuamos.
+	if (!(_thisDatalayer.config.ignoreClickClass instanceof Array)) {
+	    _thisDatalayer.config.ignoreClickClass = [_thisDatalayer.config.ignoreClickClass];
+	}
+
+	for (var e = 0; e < _thisDatalayer.config.ignoreClickClass.length; e++) {
+	    if (_thisDatalayer.config.ignoreClickClass[e] != ""
+		&& jQuery(target).hasClass(_thisDatalayer.config.ignoreClickClass[e])) {
+		return false;
+	    }
+	}
+
+	var result = _thisDatalayer.inArray(target, _thisDatalayer.datas.clickEvents);
+	if (result != false) {
+	    if (result.datas.socialtarget == "") {
+		result.datas.socialtarget = document.URL;
+	    }
+
+	    _thisDatalayer.launchEvent(result);
+	}
+    },
+
+    // Devuelve un texto del item pasado
+    getItemText: function (item) {
+
+	var target = jQuery(item);
+
+	if (Object.prototype.toString.call(item) == "[object HTMLImageElement]") {
+	    target = jQuery(item).parent();
+	}
+
+	var value = "";
+	var url = "";
+
+	value = target.attr("href");
+	if (value != null && value != "") {
+	    url = value.trim();
+	}
+
+	if (url == "/") {
+	    url = document.domain;
+	}
+
+	value = target.text();
+	if (value != null && value != "") {
+	    value = value.trim();
+	}
+
+	if (value == "") {
+	    value = target.attr("title");
+	    if (value != null && value != "") {
+		value = value.trim();
+	    }
+	}
+	if (value == "") {
+	    value = target.html();
+	    if (value != null && value != "") {
+		value = value.trim();
+	    }
+	}
+
+	return value + " " + url;
+    },
+
+    // Comprueba si el item está en el array buscando por class y lo devuelve en caso de encontrarlo
+    inArray: function (item, eventsArray) {
+
+	var _thisDatalayer = this;
+
+	item = jQuery(item);
+
+	for (var i = 0; i < eventsArray.length; i++) {
+	    if (eventsArray[i].class == null) {
+		continue;
+	    }
+
+	    if (!(eventsArray[i].class instanceof Array)) {
+		eventsArray[i].class = [eventsArray[i].class];
+	    }
+
+	    for (var e = 0; e < eventsArray[i].class.length; e++) {
+		if (eventsArray[i].class[e] != ""
+		    && item.hasClass(eventsArray[i].class[e])) {
+		    return jQuery.extend({}, eventsArray[i]);
+		}
+	    }
+	}
+
+	// Click en link de columna
+	if (!item.hasClass("lnk") && !item.hasClass("picture")) {
+	    return false;
+	}
+
+	if (item.is("a")
+	    && item.attr("href") == "") {
+	    return false;
+	}
+
+	var column = item.parents(".gdu");
+
+	if (column.length == 0) {
+	    return false;
+	}
+
+	column = jQuery(column[0]);
+
+	if (column.width() == null) {
+	    return false;
+	}
+
+	return false;
+    },
+
+    // Inicia los eventos de Facebook
+    facebookEventsInit: function () {
+
+	var _thisDatalayer = this;
+
+	// Si no existe la libreria de Facebook no continuamos.
+	if (typeof FB == 'undefined' || typeof FB.Event == 'undefined' || typeof FB.Event.subscribe == "undefined") {
+	    return false;
+	}
+
+	// Like
+	FB.Event.subscribe('edge.create', function (url) {
+	    var event = _thisDatalayer.getEventById("fbSocialLike");
+	    if (event != false) {
+		if (event.datas.socialtarget == "") {
+		    event.datas.socialtarget = document.URL;
+		}
+		_thisDatalayer.launchEvent(event);
+	    }
+	});
+
+    },
+
+    // Inicia los eventos de Twitter
+    twitterEventsInit: function () {
+
+	var _thisDatalayer = this;
+
+	// Si no existe la libreria de twitter no continuamos.
+	if (typeof twttr == 'undefined' || typeof twttr.events == 'undefined') {
+	    return false;
+	}
+
+	// Waiting for twttr to be ready
+	twttr.ready(function (twttr) {
+	    var twitterEvents = ["tweet", "retweet", "favorite", "follow"];
+
+	    for (var i = 0; i < twitterEvents.length; i++) {
+		twttr.events.bind(twitterEvents[i], function (e) {
+		    var eventName = "twitterSocial" + e.type[0].toUpperCase() + e.type.substring(1);
+		    var event = _thisDatalayer.getEventById(eventName);
+		    if (event != false) {
+			if (event.datas.socialtarget == "") {
+			    event.datas.socialtarget = document.URL;
+			}
+			_thisDatalayer.launchEvent(event);
+		    }
+		});
+	    }
+	});
+    },
+
+    // Capturador de eventos
+    eventCapture: function (eventCaptureName, eventLaunchName) {
+	var _thisDatalayer = this;
+
+	jQuery(window).on(eventCaptureName, function (e, params) {
+	    var event = jQuery.extend(true, {}, _thisDatalayer.getEventById(eventLaunchName));
+	    if (event != false) {
+		if (params != undefined && typeof params == "object") {
+		    for (var property in params) {
+			event.datas[property] = params[property];
+		    }
+		}
+
+		_thisDatalayer.launchEvent(event);
+	    }
+	});
+    },
+
+    // Comprueba que el valor de la cookie con nombre (cookieName) sea distinto de null y en ese caso llama al evento (eventName)
+    checkCookie: function (cookieName, eventName, params) {
+
+	var _thisDatalayer = this;
+
+	var value = jQuery.cookie(cookieName);
+	var domain = document.domain.replace("www.", "");
+	jQuery.cookie(cookieName, null, {path: "/", domain: domain});
+
+	// En ciertos casos, al poner el domain la cookie no se borra (pre) probamos ahora sin domain
+	if (jQuery.cookie(cookieName) != null) {
+	    jQuery.cookie(cookieName, null, {path: "/"});
+	}
+
+	if (value != null) {
+	    var event = _thisDatalayer.getEventById(eventName);
+	    if (event != false) {
+
+		if (params != undefined || typeof params == "object") {
+		    for (var property in params) {
+			event.datas[property] = params[property];
+		    }
+		}
+
+		_thisDatalayer.launchEvent(event);
+	    }
+	}
+    },
+
+    // Devuelve un objeto de evento a partir de su nombre
+    getEventById: function (eventId) {
+
+	var _thisDatalayer = this;
+
+	var events = new Array();
+	if (eventId.indexOf("click") === 0) {
+	    events = _thisDatalayer.datas.clickEvents;
+	} else {
+	    events = _thisDatalayer.datas.otherEvents;
+	}
+
+	// Si no tenemos elementos no seguimos.
+	if (events.length == 0) {
+	    return false;
+	}
+
+	var event = null;
+	for (var i = 0; i < events.length; i++) {
+	    if (events[i].id == eventId) {
+		return jQuery.extend({}, events[i]);
+	    }
+	}
+
+	return false;
+    },
+
+    launchEvent: function (eventItem) {
+        // Logs only for DEV & PRE
+	var regex = /bbdev|pre|bitban|dev/;
+	if (window.location.hostname.search(regex) != -1){
+	    console.log(eventItem);
+	}
+
+	dataLayer.push(eventItem.datas);
+    }
+
+};
+
+edi.google.userData = function() {
+
+    var cookies = {"user_id" : jQuery.cookie('3f318c9e08e55765557e27096215c95f'),
+		   "u_perfil" : jQuery.cookie('7b121efbf414cf1eb7c160d91a1ee030'),
+		   "u_aut" : jQuery.cookie('d8552a571f19a508da45cae73f2bcba2'),
+		   "u_mod_subs" : jQuery.cookie('3a6c1eae5d70a39833d3268d6804c92d'),
+		   "u_num_renov" : jQuery.cookie('40830768b3d7c0153d515c708432aad2'),
+		   "u_sexo" : jQuery.cookie('987ded5ad7d3b102caf146b21bbed985'),
+		   "u_ano_nac" : jQuery.cookie('c0d63d78fd3493d304cc2cecb363af37'),
+		   "u_provincia" : jQuery.cookie('89a9d53c938ee7659266aa0d28856aa8'),
+		   "u_alta_usuario" : jQuery.cookie('db5683e46f80611b2b8a7e218658df37'),
+		   "u_alta_socio" : jQuery.cookie('65de96c0e3d3d7947536e83ff1799e54'),
+		   "u_login" : jQuery.cookie('adb573f69e89e0da52de0686db3af833')
+		  };
+
+    var ret = {};
+    for (i in cookies) {
+	value = cookies[i];
+
+	if (value == null) {
+	    continue;
+	}
+
+	ret[i] = value;
+    }
+
+    return ret;
+};
+
+edi.google.transactionDatas = {};

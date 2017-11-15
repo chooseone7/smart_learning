@@ -1,0 +1,76 @@
+https://www.youtube.com/watch?v=_qYhm41KLHw
+
+
+
+herring - arenque 
+Pretty Witty Birds
+
+The humming bird has a long, curved beak,
+Pigeons like to eat more and more.
+The swallow has a long, forked tail.
+Crows talk a lot with a loud caw.
+
+So many birds, pretty witty birds,
+Flying, perching, hopping all around us.
+Clever little birds, so often heard,
+On the trees, swaying in the breeze.
+
+The eagle hovers overhead
+Looking for food from a height.
+The nightingale sings a happy song
+And her music fills the night.
+
+1- Don't think just listen - You can't understnad 2 convers at once
+
+2- ask questions - engage to be engated
+3 home practice - no subtitles, 2-3 sentences then play sub
+4-Close your eyes
+	cience says if you avoid one sense the others get better :)
+
+Basic ingles and so on	
+When things are relevatns
+tips , word ->
+superlatives, never, always,  must, should, also, most, best
+
+handle a stick - exprtession used to ask if the person can drive a manueal car(gear stick)
+
+
+F:\>del /p /f /q PS_Portable
+F:\>chkdsk /f   
+
+
+/*
+Windows XP and later syntax
+RMDIR [/S] [/Q] [drive:]path
+RD [/S] [/Q] [drive:]path
+/S	Removes all directories and files in the specified directory in addition to the directory itself. Used to remove a directory tree.
+/Q	Quiet mode, do not ask if ok to remove a directory tree with /S.
+Windows 95, 98, and ME syntax
+Removes (deletes) a directory.
+RMDIR [drive:]path
+RD [drive:]path
+Rd and rmdir examples
+
+rmdir c:\full
+
+If a directory contains files or folders when attempting to delete the directory you will receive "The directory is not empty." error message. If you want to delete directories that are full, use the deltree command or if you're using Windows 2000 or later use the example below with the /s switch.
+rmdir c:\test
+
+Remove the test directory, if empty.
+rmdir c:\test /s
+
+Windows 2000, Windows XP and later versions of Windows can use this option with a prompt to permanently delete the test directory and all subdirectories and files. Adding the /q switch would suppress the prompt.*/
+
+Note: When deleting anything from MS-DOS or the Windows command line it is not sent to the Recycle Bin.
+Deltree command
+
+To suppress the prompting use the deltree command and add the tag /y, as shown in the example below that deletes all files in the Windows temp directory.
+deltree c:\windows\temp\*.* /y
+Note: The above command does not work in all versions of Windows and MS-DOS.
+If this command does not work we would recommend that you create a batch file with the below command in the batch file.
+echo y | del %1\*.*
+Once created, you can type the name of the batch file then the name of the directory that you want to delete.
+Rd and rmdir command
+
+Users who want to delete a directory containing files in a Windows command line window running under Microsoft Windows 2000 or later can also use the rmdir or rd command with the /S option.
+Rd and rmdir command help.
